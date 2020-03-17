@@ -49,6 +49,10 @@ public class StudentsProcessor {
 
                     student = studentsService.selectStudentById(id);
 
+                    if (student.getId() == null) {
+                        System.out.println("Please, select another id");
+                    } else {
+
                     System.out.println("Student for edit: ");
                     System.out.println("id: " + student.getId() + "; " + "name: " + student.getName() + "; " + "last_name: " + student.getLastName() + "; " + "phone: " + student.getPhone());
 
@@ -63,6 +67,8 @@ public class StudentsProcessor {
 
                     System.out.println("Success");
 
+                    }
+
                     selectList();
 
                 } else if (type.equals("3")) {
@@ -71,12 +77,15 @@ public class StudentsProcessor {
 
                     student = studentsService.selectStudentById(id);
 
-                    studentsService.deleteStudent(id);
-                    System.out.println("Delete Student: ");
-                    System.out.println("id: " + student.getId() + "; " + "name: " + student.getName() + "; " + "last_name: " + student.getLastName() + "; " + "phone: " + student.getPhone());
+                    if (student.getId() == null) {
+                        System.out.println("Please, select another id");
+                    } else {
+                        studentsService.deleteStudent(id);
+                        System.out.println("Delete Student: ");
+                        System.out.println("id: " + student.getId() + "; " + "name: " + student.getName() + "; " + "last_name: " + student.getLastName() + "; " + "phone: " + student.getPhone());
 
-                    System.out.println("Success");
-
+                        System.out.println("Success");
+                    }
                     selectList();
 
                 } else if (type.equals("4")) {
