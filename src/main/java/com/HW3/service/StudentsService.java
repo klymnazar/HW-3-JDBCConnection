@@ -1,17 +1,20 @@
+package com.HW3.service;
+
+import com.HW3.model.Student;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 
 public class StudentsService {
 
     JDBCConnection jdbcConnection = new JDBCConnection();
 
-    public List<String> createStudent(String name, String lastName, Integer phone) throws SQLException {
+    Student student = new Student();
 
-        List<String> addStudent = new ArrayList<>();
+    public Student createStudent(String name, String lastName, Integer phone) throws SQLException {
+
         Connection connection = jdbcConnection.jdbcConnection();
         if (connection != null) {
             PreparedStatement st = null;
@@ -24,12 +27,12 @@ public class StudentsService {
 
                 st.executeUpdate();
 
-                addStudent.add(name);
-                addStudent.add(lastName);
-                addStudent.add(phone.toString());
+                student.setName(name);
+                student.setLastName(lastName);
+                student.setPhone(phone);
 
-            } catch (SQLException var9) {
-                var9.printStackTrace();
+            } catch (SQLException e) {
+                e.printStackTrace();
             } finally {
                 if (st != null) {
                     st.close();
@@ -39,12 +42,11 @@ public class StudentsService {
                 }
             }
         }
-        return addStudent;
+        return student;
     }
 
-    public List<String> editStudent(String name, String lastName, Integer phone, String id) throws SQLException {
+    public Student editStudent(String name, String lastName, Integer phone, int id) throws SQLException {
 
-        List<String> editStudent = new ArrayList<>();
         Connection connection = jdbcConnection.jdbcConnection();
         if (connection != null) {
             PreparedStatement st = null;
@@ -54,14 +56,14 @@ public class StudentsService {
                 st.setString(1, name);
                 st.setString(2, lastName);
                 st.setInt(3, phone);
-                st.setString(4, id);
+                st.setInt(4, id);
 
                 st.executeUpdate();
 
-                editStudent.add(id);
-                editStudent.add(name);
-                editStudent.add(lastName);
-                editStudent.add(phone.toString());
+                student.setId(id);
+                student.setName(name);
+                student.setLastName(lastName);
+                student.setPhone(phone);
 
             } catch (SQLException var9) {
                 var9.printStackTrace();
@@ -74,10 +76,10 @@ public class StudentsService {
                 }
             }
         }
-        return editStudent;
+        return student;
     }
 
-    public void deleteStudent(String id) throws SQLException {
+    public void deleteStudent(int id) throws SQLException {
 
         Connection connection = jdbcConnection.jdbcConnection();
         if (connection != null) {
@@ -85,7 +87,7 @@ public class StudentsService {
             try {
                 st = connection.prepareStatement("DELETE FROM students WHERE id = ?");
 
-                st.setString(1, id);
+                st.setInt(1, id);
 
                 st.executeUpdate();
 
@@ -102,17 +104,15 @@ public class StudentsService {
         }
     }
 
-    public List<String> selectStudentById(String id) throws SQLException {
+    public Student selectStudentById(int id) throws SQLException {
 
-        List<String> selectedStudent = new ArrayList<>();
-        selectedStudent.add(id);
         Connection connection = jdbcConnection.jdbcConnection();
         if (connection != null) {
             PreparedStatement st = null;
             try {
                 st = connection.prepareStatement("SELECT * FROM students WHERE id = ?");
 
-                st.setString(1, id);
+                st.setInt(1, id);
 
                 ResultSet rs = st.executeQuery();
 
@@ -122,9 +122,10 @@ public class StudentsService {
                     String lastName = rs.getString(3);
                     Integer phone = rs.getInt(4);
 
-                    selectedStudent.add(name);
-                    selectedStudent.add(lastName);
-                    selectedStudent.add(phone.toString());
+                    student.setId(id);
+                    student.setName(name);
+                    student.setLastName(lastName);
+                    student.setPhone(phone);
 
                 }
             } catch (SQLException var9) {
@@ -138,7 +139,7 @@ public class StudentsService {
                 }
             }
         }
-        return selectedStudent;
+        return student;
     }
 
 }

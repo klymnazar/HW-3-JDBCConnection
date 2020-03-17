@@ -1,3 +1,5 @@
+package com.HW3.model;
+
 public class Student {
 
     private Integer id;

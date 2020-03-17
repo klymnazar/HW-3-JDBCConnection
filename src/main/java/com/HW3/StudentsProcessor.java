@@ -1,20 +1,27 @@
-import java.util.ArrayList;
-import java.util.List;
+package com.HW3;
+
+import com.HW3.model.Mark;
+import com.HW3.model.Student;
+import com.HW3.model.Subject;
+import com.HW3.service.MarksService;
+import com.HW3.service.StudentsService;
+import com.HW3.service.SubjectsService;
+
 import java.util.Scanner;
 
 public class StudentsProcessor {
 
-    StudentsService studentsService = new StudentsService();
-    MarksService marksService = new MarksService();
-    SubjectsService subjectsService = new SubjectsService();
+    private StudentsService studentsService = new StudentsService();
+    private MarksService marksService = new MarksService();
+    private SubjectsService subjectsService = new SubjectsService();
+
+    private Student student = new Student();
+    private Mark mark = new Mark();
+    private Subject subject = new Subject();
 
     public void scanConsol() {
 
         selectList();
-
-        List<String> studentList = new ArrayList<>();
-        List<String> subjectList = new ArrayList<>();
-        List<String> selectedStudentList = new ArrayList<>();
 
         try (Scanner scanner = new Scanner(System.in)) {
             while (scanner.hasNext()) {
@@ -27,61 +34,64 @@ public class StudentsProcessor {
                     String lastName = createStudentLastName(scanner);
                     Integer phone = createStudentPhone(scanner);
 
-                    studentList = studentsService.createStudent(name, lastName, phone);
+                    student = studentsService.createStudent(name, lastName, phone);
+
                     System.out.println("AddStudent: ");
-                    System.out.println("name: " + studentList.get(0) + "; " + "last_name: " + studentList.get(1) + "; " + "phone: " + studentList.get(2));
+                    System.out.println("name: " + student.getName() + "; " + "last_name: " + student.getLastName() + "; " + "phone: " + student.getPhone());
+
                     System.out.println("Success");
 
                     selectList();
 
                 } else if (type.equals("2")) {
 
-                    String id = getStudentIdFromConsol(scanner);
+                    int id = Integer.parseInt(getStudentIdFromConsol(scanner));
 
-                    selectedStudentList = studentsService.selectStudentById(id);
+                    student = studentsService.selectStudentById(id);
 
                     System.out.println("Student for edit: ");
-                    System.out.println("id: " + selectedStudentList.get(0) + "; " + "name: " + selectedStudentList.get(1) + "; " + "last_name: " + selectedStudentList.get(2) + "; " + "phone: " + selectedStudentList.get(3));
+                    System.out.println("id: " + student.getId() + "; " + "name: " + student.getName() + "; " + "last_name: " + student.getLastName() + "; " + "phone: " + student.getPhone());
 
                     String name = createStudentName(scanner);
                     String lastName = createStudentLastName(scanner);
                     Integer phone = createStudentPhone(scanner);
 
-                    studentList = studentsService.editStudent(name, lastName, phone, id);
+                    student = studentsService.editStudent(name, lastName, phone, id);
 
                     System.out.println("EditStudent: ");
-                    System.out.println("id: " + studentList.get(0) + "; " + "name: " + studentList.get(1) + "; " + "last_name: " + studentList.get(2) + "; " + "phone: " + studentList.get(3));
+                    System.out.println("name: " + student.getName() + "; " + "last_name: " + student.getLastName() + "; " + "phone: " + student.getPhone());
+
                     System.out.println("Success");
 
                     selectList();
 
                 } else if (type.equals("3")) {
 
-                    String id = getStudentIdFromConsol(scanner);
+                    int id = Integer.parseInt(getStudentIdFromConsol(scanner));
 
-                    selectedStudentList = studentsService.selectStudentById(id);
+                    student = studentsService.selectStudentById(id);
 
                     studentsService.deleteStudent(id);
                     System.out.println("Delete Student: ");
-                    System.out.println("id: " + selectedStudentList.get(0) + "; " + "name: " + selectedStudentList.get(1) + "; " + "last_name: " + selectedStudentList.get(2) + "; " + "phone: " + selectedStudentList.get(3));
-                    System.out.println("Success");
+                    System.out.println("id: " + student.getId() + "; " + "name: " + student.getName() + "; " + "last_name: " + student.getLastName() + "; " + "phone: " + student.getPhone());
 
-                    studentsService.selectStudentById(id);
+                    System.out.println("Success");
 
                     selectList();
 
                 } else if (type.equals("4")) {
 
-                    String mark = getStudentMarkFromConsol(scanner);
-                    String subjectId = getSubjectIdFromConsol(scanner);
-                    String studentId = getStudentIdFromConsol(scanner);
+                    int marks = Integer.parseInt(getStudentMarkFromConsol(scanner));
+                    int subjectId = Integer.parseInt(getSubjectIdFromConsol(scanner));
+                    int studentId = Integer.parseInt(getStudentIdFromConsol(scanner));
 
-                    selectedStudentList = marksService.createMark(mark, subjectId, studentId);
-                    subjectList = subjectsService.selectSubjectById(selectedStudentList.get(1));
-                    studentList = studentsService.selectStudentById(selectedStudentList.get(2));
+                    mark = marksService.createMark(marks, subjectId, studentId);
+                    subject = subjectsService.selectSubjectById(subjectId);
+                    student = studentsService.selectStudentById(studentId);
 
                     System.out.println("AddMark: ");
-                    System.out.println("mark: " + selectedStudentList.get(0) + "; " + "subject_name: " + subjectList.get(1) + "; " + "name: " + studentList.get(1) + "; " + "last_name: " + studentList.get(2));
+                    System.out.println("mark: " + mark.getMark() + "; " + "subject_name: " + subject.getSubjectName() + "; " + "name: " + student.getName() + "; " + "last_name: " + student.getLastName());
+
                     System.out.println("Success");
 
                     selectList();
@@ -136,8 +146,6 @@ public class StudentsProcessor {
         System.out.println("4 - marks");
         System.out.println("5 - exit");
     }
-
-
 
 
 }

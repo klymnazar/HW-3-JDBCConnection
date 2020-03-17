@@ -1,25 +1,27 @@
+package com.HW3.service;
+
+import com.HW3.model.Subject;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 
 public class SubjectsService {
 
     JDBCConnection jdbcConnection = new JDBCConnection();
 
-    public List<String> selectSubjectById(String id) throws SQLException {
+    Subject subject = new Subject();
 
-        List<String> selectedSubject = new ArrayList<>();
-        selectedSubject.add(id);
+    public Subject selectSubjectById(int id) throws SQLException {
+
         Connection connection = jdbcConnection.jdbcConnection();
         if (connection != null) {
             PreparedStatement st = null;
             try {
                 st = connection.prepareStatement("SELECT * FROM subjects WHERE id = ?");
 
-                st.setString(1, id);
+                st.setInt(1, id);
 
                 ResultSet rs = st.executeQuery();
 
@@ -27,8 +29,7 @@ public class SubjectsService {
 
                     String subjectName = rs.getString(2);
 
-                    selectedSubject.add(subjectName);
-
+                    subject.setSubjectName(subjectName);
                 }
             } catch (SQLException var9) {
                 var9.printStackTrace();
@@ -41,7 +42,7 @@ public class SubjectsService {
                 }
             }
         }
-        return selectedSubject;
+        return subject;
     }
 
 

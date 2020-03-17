@@ -1,31 +1,32 @@
+package com.HW3.service;
+
+import com.HW3.model.Mark;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 
 public class MarksService {
 
     JDBCConnection jdbcConnection = new JDBCConnection();
 
-    public List<String> createMark(String mark, String subjectId, String studentId) throws SQLException {
+    Mark mark = new Mark();
 
-        List<String> addMark = new ArrayList<>();
+    public Mark createMark(int marks, int subjectId, int studentId) throws SQLException {
+
         Connection connection = jdbcConnection.jdbcConnection();
         if (connection != null) {
             PreparedStatement st = null;
             try {
                 st = connection.prepareStatement("INSERT INTO marks (mark, subject_id, student_id) VALUES (?, ?, ?)");
 
-                st.setString(1, mark);
-                st.setString(2, subjectId);
-                st.setString(3, studentId);
+                st.setInt(1, marks);
+                st.setInt(2, subjectId);
+                st.setInt(3, studentId);
 
                 st.executeUpdate();
 
-                addMark.add(mark);
-                addMark.add(subjectId);
-                addMark.add(studentId);
+                mark.setMark(marks);
 
             } catch (SQLException var9) {
                 var9.printStackTrace();
@@ -38,7 +39,7 @@ public class MarksService {
                 }
             }
         }
-        return addMark;
+        return mark;
     }
 
 }
