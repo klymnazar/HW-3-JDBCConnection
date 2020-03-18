@@ -1,0 +1,53 @@
+Створення таблиці marks.
+CREATE TABLE marks (id INT(11) NOT NULL PRIMARY KEY AUTO_INCREMENT, mark INT(2) NOT NULL, subject_id INT(11) NOT NULL, student_id INT(11) NOT NULL, FOREIGN KEY (subject_id) REFERENCES subjects (id) ON DELETE CASCADE ON UPDATE CASCADE, FOREIGN KEY (student_id) REFERENCES students (id) ON DELETE CASCADE ON UPDATE CASCADE);
+
+INSERT INTO marks (mark, subject_id, student_id) VALUES (10, 1, 1);
+INSERT INTO marks (mark, subject_id, student_id) VALUES (15, 1, 1);
+INSERT INTO marks (mark, subject_id, student_id) VALUES (10, 1, 1);
+INSERT INTO marks (mark, subject_id, student_id) VALUES (20, 1, 1);
+
+INSERT INTO marks (mark, subject_id, student_id) VALUES (15, 1, 2);
+INSERT INTO marks (mark, subject_id, student_id) VALUES (5, 1, 2);
+INSERT INTO marks (mark, subject_id, student_id) VALUES (10, 1, 2);
+INSERT INTO marks (mark, subject_id, student_id) VALUES (10, 1, 2);
+
+INSERT INTO marks (mark, subject_id, student_id) VALUES (20, 1, 3);
+INSERT INTO marks (mark, subject_id, student_id) VALUES (15, 1, 3);
+INSERT INTO marks (mark, subject_id, student_id) VALUES (5, 1, 3);
+INSERT INTO marks (mark, subject_id, student_id) VALUES (15, 1, 3);
+
+INSERT INTO marks (mark, subject_id, student_id) VALUES (5, 1, 4);
+INSERT INTO marks (mark, subject_id, student_id) VALUES (10, 1, 4);
+INSERT INTO marks (mark, subject_id, student_id) VALUES (10, 1, 4);
+INSERT INTO marks (mark, subject_id, student_id) VALUES (20, 1, 4);
+
+INSERT INTO marks (mark, subject_id, student_id) VALUES (10, 1, 5);
+INSERT INTO marks (mark, subject_id, student_id) VALUES (10, 1, 5);
+INSERT INTO marks (mark, subject_id, student_id) VALUES (20, 1, 5);
+INSERT INTO marks (mark, subject_id, student_id) VALUES (15, 1, 5);
+
+INSERT INTO marks (mark, subject_id, student_id) VALUES (10, 2, 1);
+INSERT INTO marks (mark, subject_id, student_id) VALUES (15, 2, 1);
+INSERT INTO marks (mark, subject_id, student_id) VALUES (15, 2, 1);
+INSERT INTO marks (mark, subject_id, student_id) VALUES (20, 2, 1);
+
+INSERT INTO marks (mark, subject_id, student_id) VALUES (15, 2, 2);
+INSERT INTO marks (mark, subject_id, student_id) VALUES (25, 2, 2);
+INSERT INTO marks (mark, subject_id, student_id) VALUES (15, 2, 2);
+INSERT INTO marks (mark, subject_id, student_id) VALUES (20, 2, 2);
+
+INSERT INTO marks (mark, subject_id, student_id) VALUES (20, 2, 3);
+INSERT INTO marks (mark, subject_id, student_id) VALUES (25, 2, 3);
+INSERT INTO marks (mark, subject_id, student_id) VALUES (25, 2, 3);
+INSERT INTO marks (mark, subject_id, student_id) VALUES (30, 2, 3);
+
+INSERT INTO marks (mark, subject_id, student_id) VALUES (20, 2, 4);
+INSERT INTO marks (mark, subject_id, student_id) VALUES (20, 2, 4);
+INSERT INTO marks (mark, subject_id, student_id) VALUES (30, 2, 4);
+INSERT INTO marks (mark, subject_id, student_id) VALUES (25, 2, 4);
+
+INSERT INTO marks (mark, subject_id, student_id) VALUES (25, 2, 5);
+INSERT INTO marks (mark, subject_id, student_id) VALUES (15, 2, 5);
+INSERT INTO marks (mark, subject_id, student_id) VALUES (15, 2, 5);
+INSERT INTO marks (mark, subject_id, student_id) VALUES (30, 2, 5);
+
